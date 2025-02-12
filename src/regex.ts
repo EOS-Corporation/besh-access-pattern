@@ -8,7 +8,7 @@
  * stars (`*`),
  * dashes (`-`),
  */
-export const valid_characters_regex = /^[a-zA-Z0-1_.;*-]+$/;
+export const valid_characters_regex = /^[a-zA-Z0-9_.;*-]+$/;
 
 /**
  * String must be like one from the list below

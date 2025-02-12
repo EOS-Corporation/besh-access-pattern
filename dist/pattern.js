@@ -1,10 +1,11 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.AccessPattern = void 0;
-const regex_1 = require("./regex");
-const resolver_1 = require("./resolver");
-const tester_1 = require("./tester");
-class AccessPattern {
+import { token_regex, valid_characters_regex, pattern_regex } from "./regex.js";
+import { TokenResolver } from "./resolver.js";
+import { TokenTester } from "./tester.js";
+export class AccessPattern {
+    include;
+    exclude;
+    includeTester;
+    excludeTester;
     constructor(pattern, options) {
         this.include = new Set();
         this.exclude = new Set();
@@ -20,8 +21,8 @@ class AccessPattern {
                 this.include.add(token);
             }
         }
-        this.includeTester = new tester_1.TokenTester(this.include);
-        this.excludeTester = new tester_1.TokenTester(this.exclude);
+        this.includeTester = new TokenTester(this.include);
+        this.excludeTester = new TokenTester(this.exclude);
     }
     test(key) {
         return this.includeTester.test(key) && !this.excludeTester.test(key);
@@ -35,8 +36,8 @@ class AccessPattern {
         }
     }
     tidy() {
-        const includeResolver = new resolver_1.TokenResolver(this.include);
-        const excludeResolver = new resolver_1.TokenResolver(this.exclude);
+        const includeResolver = new TokenResolver(this.include);
+        const excludeResolver = new TokenResolver(this.exclude);
         excludeResolver.removeOverlappingWildcards();
         excludeResolver.removeOverlappingKeys();
         includeResolver.removeOverlappingWildcards();
@@ -48,8 +49,8 @@ class AccessPattern {
         const excludeSet = excludeResolver.toSet();
         this.include = includeSet.difference(excludeSet);
         this.exclude = excludeSet.difference(includeSet);
-        this.includeTester = new tester_1.TokenTester(this.include);
-        this.excludeTester = new tester_1.TokenTester(this.exclude);
+        this.includeTester = new TokenTester(this.include);
+        this.excludeTester = new TokenTester(this.exclude);
         return this;
     }
     toWhere(key) {
@@ -132,13 +133,12 @@ class AccessPattern {
     }
     static validatePattern(pattern) {
         // Quick check for invalid characters
-        if (!pattern.match(regex_1.valid_characters_regex)) {
+        if (!pattern.match(valid_characters_regex)) {
             return false;
         }
-        return pattern.match(regex_1.pattern_regex) !== null;
+        return pattern.match(pattern_regex) !== null;
     }
     static validateToken(token) {
-        return token.match(regex_1.token_regex) !== null;
+        return token.match(token_regex) !== null;
     }
 }
-exports.AccessPattern = AccessPattern;

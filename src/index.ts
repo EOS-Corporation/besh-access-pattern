@@ -1,3 +1,3 @@
-export * from "./pattern"
-export * from "./resolver"
-export * from "./tester"
+export * from "./pattern.js"
+export * from "./resolver.js"
+export * from "./tester.js"

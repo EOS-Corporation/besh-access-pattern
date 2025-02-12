@@ -1,7 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.TokenTester = void 0;
-class TokenTester {
+export class TokenTester {
+    wildcards;
+    keys;
     constructor(tokens) {
         this.wildcards = new Set();
         this.keys = new Set();
@@ -37,4 +36,3 @@ class TokenTester {
         return false;
     }
 }
-exports.TokenTester = TokenTester;

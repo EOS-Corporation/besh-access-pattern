@@ -1,7 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.TokenResolver = void 0;
-class TokenResolver {
+export class TokenResolver {
+    wildcards;
+    keys;
     constructor(tokens) {
         this.wildcards = [];
         this.keys = [];
@@ -108,4 +107,3 @@ class TokenResolver {
         return Array.from(result);
     }
 }
-exports.TokenResolver = TokenResolver;

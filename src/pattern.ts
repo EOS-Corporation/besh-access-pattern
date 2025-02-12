@@ -1,6 +1,6 @@
-import { token_regex, valid_characters_regex, pattern_regex } from "./regex";
-import { TokenResolver } from "./resolver";
-import { TokenTester } from "./tester";
+import { token_regex, valid_characters_regex, pattern_regex } from "./regex.js";
+import { TokenResolver } from "./resolver.js";
+import { TokenTester } from "./tester.js";
 
 export interface AccessPatternOptions {
   validate?: boolean;
